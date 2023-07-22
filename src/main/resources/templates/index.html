@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset = "ISO-8859-1" />
+    <link rel = "stylesheet" href = "css/styles.css" />
+    <title>Employee Management</title>
+</head>
+<body>
+<h2>Add Employee</h2>
+<h2>Photo d'identité :</h2>
+
+<form th:action="@{/addEmployee}" th:object="${newEmployee}" method="post" enctype="multipart/form-data">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" th:field="*{firstName}" required><br>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" th:field="*{lastName}" required><br>
+
+    <label for="birthDate">Birth Date:</label>
+    <input type="date" id="birthDate" th:field="*{birthDate}" required><br>
+
+    <input type="file" accept="image/*" id="photoUpload" name="photo" onchange="handleFileSelect(event)">
+    <img id="preview" th:src="@{/UploadImage/{id}}" alt="Aperçu de l'image" style="display: none;">
+
+
+
+
+
+    <button type="submit">Add Employee</button>
+</form>
+
+<h2>Employees</h2>
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Birth Date</th>
+        <th>Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.firstName}"></td>
+        <td th:text="${employee.lastName}"></td>
+        <td th:text="${employee.birthDate}"></td>
+        <td th:text="${employee.photo}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
